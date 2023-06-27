@@ -1,4 +1,4 @@
-.dogs {
+.pets {
   list-style: none;
   display: flex;
   padding: 0;
@@ -6,7 +6,7 @@
   flex-wrap: wrap;
 }
 
-.dogs li {
+.pets li {
   border: 1px solid #1d4ed8;
   height: 300px;
   display: flex;
@@ -17,7 +17,7 @@
 }
 
 @media only screen and (max-width: 800px) {
-  .dogs {
+  .pets {
     justify-content: center;
   }
 }
