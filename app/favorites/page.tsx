@@ -26,7 +26,7 @@ export default async function Favorites() {
       return petsIds.map((p) => p.petId);
     });
 
-  if (!favoritedPetsIds) {
+  if (favoritedPetsIds.length === 0) {
     return <>No favorited pets</>;
   }
 

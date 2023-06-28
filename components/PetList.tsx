@@ -2,13 +2,6 @@ import Pet from "@/components/Pet";
 import styles from "@/components/Pet.module.css";
 import { prisma } from "@/lib/prisma";
 
-interface Pets {
-  id: string;
-  name: string;
-  image: string;
-  type: string;
-}
-
 interface Props {
   type: string;
 }

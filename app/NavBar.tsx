@@ -11,10 +11,10 @@ export default function NavBar() {
           <Link href={"/"}>Home</Link>
         </li>
         <li>
-          <Link href={"/dogs"}>Dogs</Link>
+          <Link href={"/dog"}>Dogs</Link>
         </li>
         <li>
-          <Link href={"/cats"}>Cats</Link>
+          <Link href={"/cat"}>Cats</Link>
         </li>
         <li>
           <SignInButton />
