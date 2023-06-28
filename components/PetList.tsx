@@ -1,10 +1,12 @@
 import Pet from "@/components/Pet";
 import styles from "@/components/Pet.module.css";
+import { prisma } from "@/lib/prisma";
 
 interface Pets {
-  id: number;
+  id: string;
   name: string;
   image: string;
+  type: string;
 }
 
 interface Props {
@@ -12,17 +14,23 @@ interface Props {
 }
 
 export default async function PetList({ type }: Props) {
-  const response = await fetch(`http://localhost:3000/api/${type}`);
-  const pets: Pets[] = await response.json();
+  const pets = await prisma.pets.findMany({ where: { type } });
 
   if (!pets) return <div>No pets found :( </div>;
+
+  const newPetsArray = pets.map((pet) => {
+    if (!pet.image) {
+      if (pet.type === "dog") return { ...pet, image: "/dogplaceholder.png" };
+
+      return { ...pet, image: "/catplaceholder.webp" };
+    }
+    return pet;
+  });
 
   return (
     <div>
       <ul className={styles.pets}>
-        {pets.map((pet) => (
-          <Pet key={pet.id} {...pet} />
-        ))}
+        <Pet pets={newPetsArray} />
       </ul>
     </div>
   );

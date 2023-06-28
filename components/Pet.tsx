@@ -1,16 +1,22 @@
 import Image from "next/image";
+import FavoriteButton from "./FavoriteButton/FavoriteButton";
 
 interface Props {
-  id: number;
-  name: string;
-  image: string;
+  pets: { id: string; name: string; image: string }[];
 }
 
-export default async function Pet({ id, name, image }: Props) {
+export default async function Pet({ pets }: Props) {
   return (
-    <li>
-      <Image src={image} width={300} height={200} alt={name} />
-      {name}
-    </li>
+    <>
+      {pets.map((pet) => {
+        return (
+          <li key={pet.id}>
+            <Image src={pet.image} width={300} height={200} alt={pet.name} />
+            {pet.name}
+            <FavoriteButton petId={pet.id} />
+          </li>
+        );
+      })}
+    </>
   );
 }
