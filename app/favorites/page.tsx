@@ -1,6 +1,9 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import { prisma } from "@/lib/prisma";
+import Pet from "@/components/Pet";
+import styles from "@/components/Pet.module.css";
 
 export default async function Favorites() {
   const session = await getServerSession(authOptions);
@@ -8,5 +11,35 @@ export default async function Favorites() {
   if (!session) {
     redirect("/api/auth/signin");
   }
-  return <div>Favorited Pets</div>;
+
+  const currentUserId = await prisma.user
+    .findFirst({
+      where: { email: session?.user?.email! },
+    })
+    .then((user) => user?.id!);
+
+  const favoritedPetsIds = await prisma.favorites
+    .findMany({
+      where: { userId: currentUserId },
+    })
+    .then((petsIds) => {
+      return petsIds.map((p) => p.petId);
+    });
+
+  if (!favoritedPetsIds) {
+    return <>No favorited pets</>;
+  }
+
+  const pets = await prisma.pets.findMany({
+    where: { id: { in: favoritedPetsIds } },
+  });
+
+  return (
+    <div>
+      <h1>Favorited Pets:</h1>
+      <ul className={styles.pets}>
+        <Pet pets={pets} />
+      </ul>
+    </div>
+  );
 }

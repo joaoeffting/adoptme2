@@ -13,7 +13,6 @@ export default function FavoriteClient({ petId, isFavorited }: Props) {
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
   const isMutating = isFetching || isPending;
-  console.log("EITAAAAAAAAA");
 
   const favorite = async () => {
     setIsFetching(true);
