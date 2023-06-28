@@ -8,7 +8,7 @@ interface Props {
   isFavorited: boolean;
 }
 
-export default async function FavoriteClient({ petId, isFavorited }: Props) {
+export default function FavoriteClient({ petId, isFavorited }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
