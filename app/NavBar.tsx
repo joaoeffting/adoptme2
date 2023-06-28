@@ -1,4 +1,6 @@
 import Link from "next/link";
+import AuthCheck from "@/components/AuthCheck";
+import { SignInButton, SignOutButton } from "@/components/Buttons";
 import styles from "./Navbar.module.css";
 
 export default function NavBar() {
@@ -15,7 +17,12 @@ export default function NavBar() {
           <Link href={"/cats"}>Cats</Link>
         </li>
         <li>
-          <Link href={"/favorites"}>My Favorites</Link>
+          <SignInButton />
+        </li>
+        <li>
+          <AuthCheck>
+            <SignOutButton />
+          </AuthCheck>
         </li>
       </ul>
     </nav>
